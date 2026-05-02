@@ -1,0 +1,18 @@
+[
+    { "trigger": "cp", "desc": "Competitive Programming Template", "file": "cp.txt" },
+    { "trigger": "cp_questions", "desc": "Competitive Programming", "file": "cp_questions.txt" },
+    { "trigger": "cp_fenwick_tree", "desc": "Fenwick Tree", "file": "cp_fenwick_tree.txt" },
+    { "trigger": "cp_segment_tree_basic", "desc": "Segment Tree (Basic)", "file": "cp_segment_tree_basic.txt" },
+    { "trigger": "cp_segment_tree_lazy", "desc": "Segment Tree (Lazy)", "file": "cp_segment_tree_lazy.txt" },
+    { "trigger": "cp_wavelet_tree", "desc": "Wavelet Tree", "file": "cp_wavelet_tree.txt" },
+    { "trigger": "cp_trie_xor", "desc": "Trie (XOR)", "file": "cp_trie_xor.txt" },
+    { "trigger": "cp_trie_string", "desc": "Trie (String)", "file": "cp_trie_string.txt" },
+    { "trigger": "cp_dsu", "desc": "Disjoint Set Union", "file": "cp_dsu.txt" },
+    { "trigger": "cp_z_algorithm", "desc": "Z-Algorithm", "file": "cp_z_algorithm.txt" },
+    { "trigger": "cp_kmp", "desc": "Knuth-Morris-Pratt Algorithm", "file": "cp_kmp.txt" },
+    { "trigger": "cp_matexp", "desc": "Matrix Exponentiation", "file": "cp_matexp.txt" },
+    { "trigger": "cp_math", "desc": "Math Tools", "file": "cp_math.txt" },
+    { "trigger": "cp_ordered_set", "desc": "PBDS Ordered Set", "file": "cp_ordered_set.txt" },
+    { "trigger": "cp_rng", "desc": "Random Number Generator", "file": "cp_rng.txt" },
+    { "trigger": "cp_geometry", "desc": "Geometry Tools", "file": "cp_geometry.txt" }
+]

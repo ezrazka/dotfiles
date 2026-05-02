@@ -1,0 +1,55 @@
+template<typename T>
+struct FenwickTree {
+	int n;
+	vector<T> BIT1, BIT2;
+
+	FenwickTree(int n) {
+		this->n = n;
+		BIT1.assign(n + 1, 0);
+		BIT2.assign(n + 1, 0);
+	}
+
+	FenwickTree(const vector<T>& v) : FenwickTree(v.size()) {
+		for (int idx = 1; idx <= n; idx++) {
+			BIT1[idx] += v[idx - 1];
+			int r = idx + (idx & -idx);
+			if (r <= n) BIT1[r] += BIT1[idx];
+			BIT2[idx] += v[idx - 1] * (idx - 1);
+			if (r <= n) BIT2[r] += BIT2[idx];
+		}
+	}
+
+	void add(vector<T>& BIT, int idx, T val) {
+		for (; idx <= n; idx += idx & -idx) {
+			BIT[idx] += val;
+		}
+	}
+
+	void add_range(int l, int r, T val) {
+		add(BIT1, l, val);
+		add(BIT1, r + 1, -val);
+		add(BIT2, l, val * (l - 1));
+		add(BIT2, r + 1, -val * r);
+	}
+
+	T prefix_sum(const vector<T>& BIT, int idx) {
+		T res = 0;
+		for (; idx >= 1; idx -= idx & -idx) {
+			res += BIT[idx];
+		}
+		return res;
+	}
+
+	T sum(int idx) {
+		return idx * prefix_sum(BIT1, idx) - prefix_sum(BIT2, idx);
+	}
+
+	T sum_range(int l, int r) {
+		return sum(r) - sum(l - 1);
+	}
+
+	void update(int idx, T val) {
+		T old_val = sum_range(idx, idx);
+		add_range(idx, idx, val - old_val);
+	}
+};

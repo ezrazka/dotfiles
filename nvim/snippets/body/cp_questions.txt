@@ -1,0 +1,8 @@
+/*
+    1. How does it work?
+        * 
+    2. How could I have come up with it myself?
+        * 
+    3. What can I do to make sure I can come up with it next time it appears?
+        * 
+*/
