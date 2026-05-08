@@ -1,6 +1,6 @@
-return function(use)
+return {
     -- Treesitter
-    use {
+    {
         "nvim-treesitter/nvim-treesitter",
         run = function()
             require("nvim-treesitter.install").update({ with_sync = true })()
@@ -13,4 +13,4 @@ return function(use)
             })
         end
     }
-end
+}

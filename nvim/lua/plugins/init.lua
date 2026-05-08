@@ -1,15 +1,24 @@
-vim.cmd("packadd packer.nvim")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-require("packer").startup(function(use)
-    use {
-        "wbthomason/packer.nvim"
-    }
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    })
+end
 
-    require("plugins.ui")(use)
-    require("plugins.treesitter")(use)
-    require("plugins.navigation")(use)
-    require("plugins.undotree")(use)
-    require("plugins.git")(use)
-    require("plugins.cp")(use)
-    require("plugins.lsp")(use)
-end)
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+    require("plugins.ui"),
+    -- require("plugins.treesitter"),
+    require("plugins.navigation"),
+    require("plugins.undotree"),
+    require("plugins.git"),
+    require("plugins.cp"),
+    require("plugins.lsp")
+})

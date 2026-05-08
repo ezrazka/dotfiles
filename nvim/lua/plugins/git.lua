@@ -1,17 +1,18 @@
-return function(use)
+return {
     -- Fugitive (command: git)
-    use {
+    {
         "tpope/vim-fugitive",
         config = function()
             vim.keymap.set("n", "<leader>git", function() vim.cmd("vertical Git") end)
         end
-    }
+    },
 
     -- Gitsigns (prefix: g)
-    use {
+    {
         "lewis6991/gitsigns.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
-
+        dependencies = {
+            "nvim-lua/plenary.nvim"
+        },
         config = function()
             require("gitsigns").setup({
                 signcolumn = true,
@@ -61,4 +62,4 @@ return function(use)
             })
         end
     }
-end
+}

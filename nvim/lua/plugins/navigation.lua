@@ -1,13 +1,15 @@
-return function(use)
+return {
     -- Vim Tmux Navigator
-    use {
+    {
         "christoomey/vim-tmux-navigator"
-    }
+    },
 
     -- Oil (command: e)
-    use {
+    {
         "stevearc/oil.nvim",
-        requires = { "nvim-tree/nvim-web-devicons" },
+        dependencies = {
+            "nvim-tree/nvim-web-devicons"
+        },
         config = function()
             require("oil").setup({
                 win_options = {
@@ -37,12 +39,14 @@ return function(use)
 
             vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
         end
-    }
+    },
 
     -- Telescope (prefix: f)
-    use {
+    {
         "nvim-telescope/telescope.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
+        dependencies = {
+            "nvim-lua/plenary.nvim"
+        },
         config = function()
             local builtin = require("telescope.builtin")
             vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
@@ -51,10 +55,10 @@ return function(use)
                 builtin.grep_string({ search = vim.fn.input("Grep string: ") })
             end)
         end
-    }
+    },
 
     -- Harpoon (prefix: h)
-    use {
+    {
         "theprimeagen/harpoon",
         config = function()
             local mark = require("harpoon.mark")
@@ -70,4 +74,4 @@ return function(use)
             vim.keymap.set("n", "<leader>h5", function() ui.nav_file(5) end)
         end
     }
-end
+}

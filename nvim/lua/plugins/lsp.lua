@@ -1,11 +1,12 @@
-return function(use)
+return {
     -- LSP
-    use {
+    {
         "neovim/nvim-lspconfig",
-        requires = {
+        dependencies = {
             "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-path"
+            "hrsh7th/cmp-path",
+            "L3MON4D3/LuaSnip"
         },
         config = function()
             local cmp = require("cmp")
@@ -51,4 +52,4 @@ return function(use)
             })
         end
     }
-end
+}

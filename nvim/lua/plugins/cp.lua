@@ -1,8 +1,10 @@
-return function(use)
+return {
     -- CompetiTest (prefix: t)
-    use {
+    {
         "xeluxee/competitest.nvim",
-        requires = { "MunifTanjim/nui.nvim" },
+        dependencies = {
+            "MunifTanjim/nui.nvim"
+        },
         config = function()
             local cp_dir = "/Desktop/Coding/Competitive Programming"
             local function in_cp_dir()
@@ -55,12 +57,14 @@ return function(use)
             vim.keymap.set("n", "<leader>te", ":CompetiTest edit_testcase ")
             vim.keymap.set("n", "<leader>td", ":CompetiTest delete_testcase ")
         end
-    }
+    },
 
     -- LuaSnip
-    use {
+    {
         "L3MON4D3/LuaSnip",
-        requires = { "saadparwaiz1/cmp_luasnip" },
+        dependencies = {
+            "saadparwaiz1/cmp_luasnip"
+        },
         config = function()
             local cp_dir = "/Desktop/Coding/Competitive Programming"
             local function in_cp_dir()
@@ -97,4 +101,4 @@ return function(use)
             ls.add_snippets("cpp", snippets)
         end
     }
-end
+}

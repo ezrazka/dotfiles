@@ -1,18 +1,21 @@
-return function(use)
+return {
     -- Catppuccin
-    use {
+    {
         "catppuccin/nvim",
-        as = "catppuccin",
+        name = "catppuccin",
         config = function()
             require("catppuccin").setup({ auto_integrations = true })
             vim.cmd.colorscheme("catppuccin-nvim")
         end
-    }
+    },
 
     -- Lualine
-    use {
+    {
         "nvim-lualine/lualine.nvim",
-        requires = { "nvim-tree/nvim-web-devicons" },
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+            "catppuccin/nvim",
+        },
         config = function()
             require("lualine").setup({
                 options = {
@@ -22,4 +25,4 @@ return function(use)
             })
         end
     }
-end
+}
