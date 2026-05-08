@@ -1,15 +1,16 @@
-local cp_dir = "/Desktop/Coding/Competitive Programming"
-local function in_cp_dir()
-    local cwd = vim.fn.getcwd()
-    return cwd:find("Competitive Programming") ~= nil
-end
-
 return function(use)
     -- CompetiTest (prefix: t)
     use {
         "xeluxee/competitest.nvim",
         requires = { "MunifTanjim/nui.nvim" },
         config = function()
+            local cp_dir = "/Desktop/Coding/Competitive Programming"
+            local function in_cp_dir()
+                local home = os.getenv("HOME")
+                local cwd = vim.fn.getcwd()
+                return cwd:find(home .. cp_dir, 1, true) ~= nil
+            end
+
             if not in_cp_dir() then
                 return
             end
@@ -33,7 +34,7 @@ return function(use)
             local abs_path = home .. cp_dir .. "/Testcase Dump"
             local testcase_dir = make_relative(abs_path, vim.fn.getcwd())
             vim.fn.mkdir(abs_path, "p")
-
+            
             require("competitest").setup({
                 compile_command = {
                     cpp = { exec = "g++-14", args = { "-std=c++17", "-O2", "-o", "/tmp/$(FNOEXT)", "$(FNAME)" } }
@@ -61,6 +62,13 @@ return function(use)
         "L3MON4D3/LuaSnip",
         requires = { "saadparwaiz1/cmp_luasnip" },
         config = function()
+            local cp_dir = "/Desktop/Coding/Competitive Programming"
+            local function in_cp_dir()
+                local home = os.getenv("HOME")
+                local cwd = vim.fn.getcwd()
+                return cwd:find(home .. cp_dir, 1, true) ~= nil
+            end
+
             if not in_cp_dir() then
                 return
             end
@@ -81,9 +89,8 @@ return function(use)
                     table.insert(lines, line)
                 end
                 table.insert(snippets, ls.snippet(
-                    entry.trigger,
-                    { ls.text_node(lines), ls.insert_node(1) },
-                    { desc = entry.desc }
+                    { trig = entry.trigger, name = entry.desc },
+                    { ls.text_node(lines), ls.insert_node(1) }
                 ))
             end
 
