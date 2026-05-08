@@ -5,7 +5,6 @@ return function(use)
         as = "catppuccin",
         config = function()
             require("catppuccin").setup({ auto_integrations = true })
-
             vim.cmd.colorscheme("catppuccin-nvim")
         end
     }
@@ -13,7 +12,7 @@ return function(use)
     -- Lualine
     use {
         "nvim-lualine/lualine.nvim",
-        requires = { "nvim-tree/nvim-web-devicons", opt = true },
+        requires = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("lualine").setup({
                 options = {

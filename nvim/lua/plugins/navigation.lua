@@ -7,7 +7,7 @@ return function(use)
     -- Oil (command: e)
     use {
         "stevearc/oil.nvim",
-        requires = { "nvim-tree/nvim-web-devicons", opt = true },
+        requires = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("oil").setup({
                 win_options = {
@@ -15,13 +15,24 @@ return function(use)
                     relativenumber = false,
                     winbar = "%{v:lua.require(\"oil\").get_current_dir()}"
                 },
+
                 default_file_explorer = true,
                 view_options = { show_hidden = true },
                 float = { border = "rounded" },
                 confirmation = { border = "rounded" },
                 progress = { border = "rounded" },
                 ssh = { border = "rounded" },
-                keymaps_help = { border = "rounded" }
+                keymaps_help = { border = "rounded" },
+
+                keymaps = {
+                    ["<C-h>"] = {},
+                    ["<C-l>"] = {},
+                    ["_"] = {},
+                    ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
+                    ["<C-e>"] = "actions.refresh",
+                    ["-"] = { "actions.open_cwd", mode = "n" },
+                    ["`"] = { "actions.cd", mode = "n" }
+                }
             })
 
             vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
