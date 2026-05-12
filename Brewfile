@@ -1,0 +1,11 @@
+brew "gcc"
+brew "neovim"
+brew "pyenv"
+brew "ripgrep"
+brew "tmux"
+brew "trash"
+brew "tree"
+brew "tree-sitter"
+
+cask "font-meslo-lg-nerd-font"
+cask "sioyek"
