@@ -67,6 +67,31 @@ return {
                     })
                 end
             })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "python" },
+                callback = function()
+                    local root_dir = vim.fs.dirname(
+                        vim.fs.find({ "pyproject.toml", "requirements.txt", ".git" }, { upward = true })[1]
+                        or vim.api.nvim_buf_get_name(0)
+                    )
+                    vim.lsp.start({
+                        name = "pyright",
+                        cmd = { "pyright-langserver", "--stdio" },
+                        filetypes = { "python" },
+                        root_dir = root_dir,
+                        settings = {
+                            python = {
+                                analysis = {
+                                    autoSearchPaths = true,
+                                    useLibraryCodeForTypes = true,
+                                    diagnosticMode = "workspace",
+                                },
+                            },
+                        },
+                    })
+                end
+            })
         end
     }
 }

@@ -13,8 +13,8 @@ return {
         config = function()
             require("oil").setup({
                 win_options = {
-                    number = false,
-                    relativenumber = false,
+                    number = true,
+                    relativenumber = true,
                     winbar = "%{v:lua.require(\"oil\").get_current_dir()}"
                 },
 
