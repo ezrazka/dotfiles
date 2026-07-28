@@ -25,7 +25,8 @@ require("core.options")
 require("core.keymaps")
 require("lazy").setup({
     require("plugins.ui"),
-    -- require("plugins.treesitter"),
+    require("plugins.treesitter"),
+    require("plugins.folds"),
     require("plugins.navigation"),
     require("plugins.undotree"),
     require("plugins.git"),

@@ -4,10 +4,8 @@
 
 vim.keymap.set("n", "<leader>v", ":e $MYVIMRC<CR>")
 
-vim.keymap.set("n", "<leader>d", "\"_d")
-vim.keymap.set("n", "<leader>c", "\"_c")
-vim.keymap.set("n", "<leader>D", "\"_D")
-vim.keymap.set("n", "<leader>C", "\"_C")
+vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
+vim.keymap.set({ "n", "v" }, "<leader>D", "\"_D")
 
 vim.keymap.set("n", "gl", vim.diagnostic.open_float)
 
