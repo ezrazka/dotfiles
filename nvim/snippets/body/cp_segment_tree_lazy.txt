@@ -1,65 +1,76 @@
 template<typename T>
 struct segment_tree {
-	int n;
-	vector<T> tree;
-	vector<T> lazy;
+    int n;
+    vector<T> tree, lazy;
 
-	segment_tree(int n) {
-		this->n = n;
-		tree.assign(4 * n, 0);
-		lazy.assign(4 * n, 0);
-	}
+    inline static T u_id{};
+    inline static T q_id{};
+    static T& u_op(T& a, const T& b) { return a += b; }
+    static T q_op(const T& a, const T& b) { return a + b; }
 
-	void build(int pos, int low, int high, const vector<T>& v) {
-		if (low == high) {
-			tree[pos] = v[low];
-			return;
-		}
+    segment_tree(int n) : n(n), tree(4 * n, q_id), lazy(4 * n, u_id) {}
 
-		int mid = (low + high) / 2;
-		build(2 * pos + 1, low, mid, v);
-		build(2 * pos + 2, mid + 1, high, v);
-		tree[pos] = tree[2 * pos + 1] + tree[2 * pos + 2];
-	}
+    void apply(int pos, int low, int high) {
+        tree[pos] += (high - low + 1) * lazy[pos];
+    }
 
-	void propagate(int pos, int low, int high) {
-		if (lazy[pos] != 0) {
-			tree[pos] += (high - low + 1) * lazy[pos];
-			if (low != high) {
-				lazy[2 * pos + 1] += lazy[pos];
-				lazy[2 * pos + 2] += lazy[pos];
-			}
-			lazy[pos] = 0;
-		}
-	}
+    void propagate(int pos, int low, int high) {
+        if (lazy[pos] != u_id) {
+            apply(pos, low, high);
+            if (low != high) {
+                u_op(lazy[2 * pos + 1], lazy[pos]);
+                u_op(lazy[2 * pos + 2], lazy[pos]);
+            }
+            lazy[pos] = u_id;
+        }
+    }
 
-	void update(int pos, int low, int high, int q_low, int q_high, T val) {
-		propagate(pos, low, high);
-		if (q_low <= low && high <= q_high) {
-			lazy[pos] += val;
-			propagate(pos, low, high);
-			return;
-		}
-		if (high < q_low || q_high < low) {
-			return;
-		}
+    void build(int pos, int low, int high, const vector<T>& a) {
+        if (low == high) {
+            tree[pos] = a[low];
+            return;
+        }
 
-		int mid = (low + high) / 2;
-		update(2 * pos + 1, low, mid, q_low, q_high, val);
-		update(2 * pos + 2, mid + 1, high, q_low, q_high, val);
-		tree[pos] = tree[2 * pos + 1] + tree[2 * pos + 2];
-	}
+        const int mid = (low + high) / 2;
+        build(2 * pos + 1, low, mid, a);
+        build(2 * pos + 2, mid + 1, high, a);
+        tree[pos] = q_op(tree[2 * pos + 1], tree[2 * pos + 2]);
+    }
 
-	T query(int pos, int low, int high, int q_low, int q_high) {
-		propagate(pos, low, high);
-		if (q_low <= low && high <= q_high) {
-			return tree[pos];
-		}
-		if (high < q_low || q_high < low) {
-			return 0;
-		}
+    void update(int pos, int low, int high, int u_low, int u_high, const T& val) {
+        propagate(pos, low, high);
+        if (high < u_low || u_high < low) {
+            return;
+        }
+        if (u_low <= low && high <= u_high) {
+            u_op(lazy[pos], val);
+            propagate(pos, low, high);
+            return;
+        }
 
-		int mid = (low + high) / 2;
-		return query(2 * pos + 1, low, mid, q_low, q_high) + query(2 * pos + 2, mid + 1, high, q_low, q_high);
-	}
+        const int mid = (low + high) / 2;
+        update(2 * pos + 1, low, mid, u_low, u_high, val);
+        update(2 * pos + 2, mid + 1, high, u_low, u_high, val);
+        tree[pos] = q_op(tree[2 * pos + 1], tree[2 * pos + 2]);
+    }
+
+    T query(int pos, int low, int high, int q_low, int q_high) {
+        propagate(pos, low, high);
+        if (high < q_low || q_high < low) {
+            return q_id;
+        }
+        if (q_low <= low && high <= q_high) {
+            return tree[pos];
+        }
+
+        const int mid = (low + high) / 2;
+        return q_op(
+            query(2 * pos + 1, low, mid, q_low, q_high),
+            query(2 * pos + 2, mid + 1, high, q_low, q_high)
+        );
+    }
+
+    void build(const vector<T>& a) { build(0, 0, n - 1, a); }
+    void update(int low, int high, const T& val) { update(0, 0, n - 1, low, high, val); }
+    T query(int low, int high) { return query(0, 0, n - 1, low, high); }
 };

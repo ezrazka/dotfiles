@@ -39,7 +39,7 @@ return {
             
             require("competitest").setup({
                 compile_command = {
-                    cpp = { exec = "g++-14", args = { "-std=c++17", "-O2", "-o", "/tmp/$(FNOEXT)", "$(FNAME)" } }
+                    cpp = { exec = "g++-14", args = { "-std=c++23", "-O2", "-o", "/tmp/$(FNOEXT)", "$(FNAME)" } }
                 },
                 run_command = {
                     cpp = { exec = "/tmp/$(FNOEXT)" }
